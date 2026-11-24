@@ -17,7 +17,7 @@ tags:
   - dashboard
 ---
 
-This example shows how `<FrameViewer/>` appears for a document called `OrderedPerson` with list fields in Create/ Edit and View mode. If a field is described as a List it means the field can have one or more values and is ordered. The field must have at least one entry.
+This example shows how `<FrameViewer/>` appears for a document called `OrderedPerson` with list fields in Create/ Edit and View mode. If a field is described as a List it means the field can have ordered values with multiplicity. The field is optional by default: it can be omitted, supplied as `[]`, or supplied with one or more values.
 
 ## Demo
 

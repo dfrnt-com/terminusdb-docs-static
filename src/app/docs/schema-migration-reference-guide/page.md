@@ -521,9 +521,10 @@ The `CreateClassProperty` command creates a new property of a given name and typ
 *   Cardinality including zero
 *   A Set
 *   An Optional
+*   A List
 *   An Array
 
-Notably this excludes lists and required properties. With lists it will require the addition of the empty list resulting in a _strengthening_. The operation is impossible with a required property unless a default is specified.
+Notably this excludes required properties. A `List` is optional by default, so adding one does not rewrite existing documents; name the property in the class-level `@mandatory` annotation to require presence, in which case adding it requires a default.
 
 ```typescript
 { "@type" : "CreateClassProperty",

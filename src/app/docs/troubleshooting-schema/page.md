@@ -71,7 +71,7 @@ This page covers errors that occur when inserting or updating documents that vio
    curl -u admin:root \
      "http://localhost:6363/api/document/admin/tdb-example-mydb?graph_type=schema&type=MyClass"
    ```
-2. Fields declared as `"Optional"` can be omitted; all other fields are required.
+2. Fields declared as `"Optional"` can be omitted, and `List` fields can be omitted unless the class names them in `@mandatory`; other fields are required.
 3. If you want a field to be optional, update the schema:
    ```json
    {

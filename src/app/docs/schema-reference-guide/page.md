@@ -54,7 +54,7 @@ A key is one of two values, **keyword** or **property**, described in the table 
 
 {%/table%}
 
-Property names beginning with `@` (at-sign) are reserved for TerminusDB schema definition language keywords such as `@id`, `@type`, `@key`, `@base`, `@schema`, `@context`, `@inherits`, `@documentation`, `@subdocument`, `@abstract`, `@unfoldable`, `@metadata`, `@oneOf`.
+Property names beginning with `@` (at-sign) are reserved for TerminusDB schema definition language keywords such as `@id`, `@type`, `@key`, `@base`, `@schema`, `@context`, `@inherits`, `@documentation`, `@subdocument`, `@abstract`, `@unfoldable`, `@mandatory`, `@metadata`, `@oneOf`.
 
 ## Class definition
 
@@ -1299,6 +1299,24 @@ The `customer` is fully unfolded while `items` remain as ID references.
 
 See also the [Document Unfolding Reference](/docs/document-unfolding-reference/) for more details on cycle detection and performance characteristics.
 
+### @mandatory
+
+`@mandatory` is a class-level annotation whose value is a list of property names. It marks those properties as required even when their type family would otherwise allow omission. Use it for `List` properties, which are optional by default.
+
+```json
+{
+    "@type"       : "Class",
+    "@id"         : "TaskList",
+    "@mandatory"  : ["tasks"],
+    "tasks"       : {
+        "@type"  : "List",
+        "@class" : "Task"
+    }
+}
+```
+
+Here `tasks` must be supplied, but the supplied list may be empty. `@mandatory: []` marks no properties as mandatory and is equivalent to omitting the annotation. `@mandatory` is inherited by subclasses.
+
 ### @shared (reference-counted documents)
 
 The `@shared` key is present with the value `[]` or it is not present.
@@ -1692,6 +1710,8 @@ OR
 ### List
 
 Use `List` to specify an ordered collection, with multiplicity, of values of a class or datatype.
+
+A `List` property is optional by default. Omitting the property leaves it unset, supplying `[]` stores an explicit empty list, and supplying values preserves their order and duplicates. Name the property in the class-level `@mandatory` annotation to require that the property be supplied; mandatory presence does not require a minimum number of elements.
 
 #### Code: An example of type family List
 
