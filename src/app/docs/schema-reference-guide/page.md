@@ -54,7 +54,7 @@ A key is one of two values, **keyword** or **property**, described in the table 
 
 {%/table%}
 
-Property names beginning with `@` (at-sign) are reserved for TerminusDB schema definition language keywords such as `@id`, `@type`, `@key`, `@base`, `@schema`, `@context`, `@inherits`, `@documentation`, `@subdocument`, `@abstract`, `@unfoldable`, `@metadata`, `@oneOf`.
+Property names beginning with `@` (at-sign) are reserved for TerminusDB schema definition language keywords such as `@id`, `@type`, `@key`, `@base`, `@schema`, `@context`, `@inherits`, `@documentation`, `@subdocument`, `@abstract`, `@unfoldable`, `@mandatory`, `@metadata`, `@oneOf`.
 
 ## Class definition
 
@@ -1299,6 +1299,24 @@ The `customer` is fully unfolded while `items` remain as ID references.
 
 See also the [Document Unfolding Reference](/docs/document-unfolding-reference/) for more details on cycle detection and performance characteristics.
 
+### @mandatory
+
+`@mandatory` is a field-level marker on a `List` property, written like `@unfold` on the property specification. Its value is always `[]`. It requires the property to be present; it does not constrain the elements or the length of the list.
+
+```json
+{
+    "@type"   : "Class",
+    "@id"     : "TaskList",
+    "tags"    : {
+        "@type"      : "List",
+        "@class"     : "xsd:string",
+        "@mandatory" : []
+    }
+}
+```
+
+Here `tags` must be supplied, but the supplied list may be empty. Any value other than `[]` is rejected, and `@mandatory` is rejected on the class itself and on properties that are not a `List`. Subclasses inherit the marker with the property.
+
 ### @shared (reference-counted documents)
 
 The `@shared` key is present with the value `[]` or it is not present.
@@ -1692,6 +1710,8 @@ OR
 ### List
 
 Use `List` to specify an ordered collection, with multiplicity, of values of a class or datatype.
+
+A `List` property is optional by default. Omitting the property leaves it unset, supplying `[]` stores an explicit empty list, and supplying values preserves their order and duplicates. Add the [`@mandatory`](#mandatory) marker to the property specification to require that the property be supplied; mandatory presence does not require a minimum number of elements.
 
 #### Code: An example of type family List
 
