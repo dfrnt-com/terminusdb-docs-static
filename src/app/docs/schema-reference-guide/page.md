@@ -1307,15 +1307,15 @@ See also the [Document Unfolding Reference](/docs/document-unfolding-reference/)
 {
     "@type"       : "Class",
     "@id"         : "TaskList",
-    "@mandatory"  : ["tasks"],
-    "tasks"       : {
+    "@mandatory"  : ["tags"],
+    "tags"        : {
         "@type"  : "List",
-        "@class" : "Task"
+        "@class" : "xsd:string"
     }
 }
 ```
 
-Here `tasks` must be supplied, but the supplied list may be empty. `@mandatory: []` marks no properties as mandatory and is equivalent to omitting the annotation. `@mandatory` is inherited by subclasses.
+Here `tags` must be supplied, but the supplied list may be empty. `@mandatory: []` marks no properties as mandatory and is equivalent to omitting the annotation. `@mandatory` is inherited by subclasses.
 
 ### @shared (reference-counted documents)
 
